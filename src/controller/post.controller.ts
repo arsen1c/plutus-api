@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { PostInput } from "../models/post.model";
-import { createPost, getAllPosts, postLike } from "../service/post.service";
+import { createPost, famousPosts, getAllPosts, postLike } from "../service/post.service";
 
 export async function createPostHandler(req: Request, res: Response) {
     try {
@@ -30,5 +30,15 @@ export async function likePostHandler(req: Request, res: Response) {
         return res.status(201).send(posts)
     } catch (error: any) {
         return res.status(409).send(error.message)
+    }
+}
+
+export async function famousPostHandler(req: Request, res: Response) {
+    try {
+        const posts = await famousPosts();
+
+        res.status(200).send(posts);
+    } catch (error: any) {
+        res.status(404).send(error.message);
     }
 }

@@ -49,3 +49,12 @@ export async function postLike(body: PostLikeInput) {
         throw new Error(error);
     }
 }
+
+export async function famousPosts() {
+    try {
+        const posts: PostDocument[] = await PostModel.find({}).sort({ likes: -1 }).limit(10)
+        return posts;
+    } catch (error: any) {
+        throw new Error(error);
+    }
+}
