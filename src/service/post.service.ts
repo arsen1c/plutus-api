@@ -1,5 +1,6 @@
 import PostModel, { PostDocument, PostInput, PostLikeInput } from "../models/post.model";
 import UserModel from "../models/user.model";
+import { sendMail } from "../utils/sendMail";
 
 export async function createPost(body: PostInput) {
     try {
@@ -35,14 +36,27 @@ export async function postLike(body: PostLikeInput) {
         }
 
         const user = await UserModel.findOne({ _id: post.user });
-        const allPosts = await PostModel.find({ user: body.user });
-
         if (!user) {
             throw new Error("Invalid user")
         }
-
         post.likes++;
+
+        const allPosts: PostDocument[] = await PostModel.find({ user: post.user });
+
+        const average = Math.floor(allPosts.reduce((acc, post) => acc + post.likes, 0) / allPosts.length);
+
+        const famous = average * 3;
+        const currentAverage = user.average_likes
+        const newAverage = Math.max(famous, user.average_likes);
+
+        if (newAverage > currentAverage) {
+            sendMail(`Sending message cus famous. Average: ${user.average_likes}. Famous: ${famous}`);
+        }
+
+        user.average_likes = newAverage;
+
         await post.save();
+        await user.save();
 
         return post;
     } catch (error: any) {
