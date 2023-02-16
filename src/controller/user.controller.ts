@@ -1,12 +1,26 @@
 import { Request, Response } from "express";
-import { UserDocument, UserInput } from "../models/user.model";
-import { createUser, getUsers } from "../service/user.service";
+import { UserInput } from "../models/user.model";
+import { createUser, getAllUsers, getUser } from "../service/user.service";
+
+export async function getAllUsersHandler(req: Request, res: Response) {
+    try {
+        const users = await getAllUsers();
+        return res.status(200).send(users)
+    } catch (error: any) {
+        res.send(404).send(error.message)
+    }
+}
 
 export async function getUserHandler(req: Request, res: Response) {
     try {
-        const users: UserDocument[] = await getUsers();
+        const name = req.params.name;
+        const user = await getUser(name);
 
-        return res.status(200).send(users)
+        if (!user) {
+            return res.status(404);
+        }
+
+        return res.status(200).send(user)
     } catch (error: any) {
         return res.status(404).send(error.message)
     }

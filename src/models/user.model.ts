@@ -1,16 +1,17 @@
 import mongoose from "mongoose";
 import argon2 from "argon2"
+import { postSchema } from "./post.model";
 
 export interface UserInput {
     name: string;
     email: string;
-    password: string
+    password: string;
 }
 
 export interface UserDocument extends UserInput, mongoose.Document {
     createdAt: Date;
     updatedAt: Date;
-    comparePassword(candidatePassword: string): Promise<Boolean>
+    comparePassword(candidatePassword: string): Promise<Boolean>;
 }
 
 export const userSchema = new mongoose.Schema({

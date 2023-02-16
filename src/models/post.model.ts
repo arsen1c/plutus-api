@@ -14,7 +14,7 @@ export interface PostDocument extends PostInput, mongoose.Document {
     updatedAt: Date;
 }
 
-const postSchema = new mongoose.Schema({
+export const postSchema = new mongoose.Schema({
     postId: {
         type: String,
         required: true,
