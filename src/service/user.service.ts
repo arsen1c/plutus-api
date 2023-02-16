@@ -1,3 +1,4 @@
+import { HttpErrorException } from "../exceptions/HttpErrorException";
 import UserModel, { UserInput } from "../models/user.model";
 
 export interface ISignin {
@@ -6,53 +7,38 @@ export interface ISignin {
 }
 
 export async function getAllUsers() {
-    try {
-        const users = await UserModel.find({}).select("-password");
-        return users;
-    } catch (error: any) {
-        throw new Error(error)
-    }
+    const users = await UserModel.find({}).select("-password");
+    return users;
 }
 
 export async function getUser(name: string) {
-    try {
-        const user = await UserModel.findOne({ name }).select("-password");
+    const user = await UserModel.findOne({ name }).select("-password");
 
-        return user;
-    } catch (error: any) {
-        throw new Error(error);
-    }
+    if (!user) throw HttpErrorException.resourceNotFound("User not found");
+
+    return user;
 }
 
 export async function createUser(input: UserInput) {
-    try {
-        const userRecord = await UserModel.create(input);
+    const userRecord = await UserModel.create(input);
 
-        const user = userRecord.toObject();
-        // Remove password property from the user user object
-        Reflect.deleteProperty(user, "password");
+    const user = userRecord.toObject();
+    // Remove password property from the user user object
+    Reflect.deleteProperty(user, "password");
 
-        return user;
-    } catch (error: any) {
-        throw new Error(error);
-    }
+    return user;
 }
 
 export async function loginUser(body: ISignin) {
-    try {
-        const userRecord = await UserModel.findOne({ name: body.name });
-        if (!userRecord) throw new Error("User not found");
+    const userRecord = await UserModel.findOne({ name: body.name });
+    if (!userRecord) throw HttpErrorException.resourceNotFound("User not found!");
 
-        const isValidPassword = await userRecord.comparePassword(body.password);
-        if (!isValidPassword) throw new Error("Invalid password");
+    const isValidPassword = await userRecord.comparePassword(body.password);
+    if (!isValidPassword) throw HttpErrorException.unAuthorized("Invalid password");
 
-        const user = userRecord.toObject();
-        // Remove the password property
-        Reflect.deleteProperty(user, "password")
+    const user = userRecord.toObject();
+    // Remove the password property
+    Reflect.deleteProperty(user, "password")
 
-        return user;
-    } catch (error: any) {
-        throw new Error(error)
-    }
-
+    return user;
 } 
