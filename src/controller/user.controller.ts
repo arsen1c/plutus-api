@@ -17,7 +17,7 @@ export async function getUserHandler(req: Request, res: Response) {
         const user = await getUser(name);
 
         if (!user) {
-            return res.status(404);
+            return res.status(404).send();
         }
 
         return res.status(200).send(user)

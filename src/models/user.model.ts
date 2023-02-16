@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import argon2 from "argon2"
-import { postSchema } from "./post.model";
 
 export interface UserInput {
     name: string;
@@ -18,6 +17,7 @@ export const userSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    average_likes: { typer: Number, default: 0 }
 }, {
     timestamps: true
 })
