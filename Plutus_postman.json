@@ -1,0 +1,195 @@
+{
+    "info": {
+        "name": "Plutus",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "get specific user",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:5000/api/user/astrix",
+                    "path": [
+                        "api",
+                        "user",
+                        "astrix"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                }
+            }
+        },
+        {
+            "name": "Create user",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:5000/api/user",
+                    "path": [
+                        "api",
+                        "user"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"name\": \"astrix\",\n  \"email\": \"astrix@gmail.com\",\n  \"password\": \"test\"\n}"
+                }
+            }
+        },
+        {
+            "name": "Create post",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:5000/api/post",
+                    "path": [
+                        "api",
+                        "post"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"user\": \"63ee6eece30bec0a2f7f510f\",\n  \"data\": \"seventh post by astrix\"\n} "
+                }
+            }
+        },
+        {
+            "name": "like a post",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:5000/api/post/like",
+                    "path": [
+                        "api",
+                        "post",
+                        "like"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"user\": \"63ee6ee0e30bec0a2f7f510b\",\n  \"postId\": \"63ee6f0fe30bec0a2f7f511f\"\n} "
+                }
+            }
+        },
+        {
+            "name": "login user",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:5000/api/user/login",
+                    "path": [
+                        "api",
+                        "user",
+                        "login"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"name\": \"arsenic\",\n  \"password\": \"test\"\n} "
+                }
+            }
+        },
+        {
+            "name": "get all users",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:5000/api/user/all",
+                    "path": [
+                        "api",
+                        "user",
+                        "all"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                }
+            }
+        },
+        {
+            "name": "famous posts",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:5000/api/post/famous",
+                    "path": [
+                        "api",
+                        "post",
+                        "famous"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                }
+            }
+        },
+        {
+            "name": "get all posts",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:5000/api/post/all",
+                    "path": [
+                        "api",
+                        "post",
+                        "all"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                }
+            }
+        }
+    ]
+}
